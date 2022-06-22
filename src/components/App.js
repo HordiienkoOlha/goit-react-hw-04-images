@@ -18,7 +18,6 @@ export default function App() {
   const [page, setPage] = useState(1);
   const [photos, setPhotos] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [errorState, setError] = useState(null);
   const [largeImageURL, setLargeImageURL] = useState(null);
   const [active, setActive] = useState(false);
 
@@ -27,7 +26,7 @@ export default function App() {
       return;
     }
     fetchPhotos(queryInput, page);
-  });
+  }, [queryInput, page]);
 
   const fetchPhotos = (query, page) => {
     setIsLoading(true);
@@ -37,8 +36,7 @@ export default function App() {
         setPhotos(prevPhotos => [...prevPhotos, ...mapper(data.hits)]);
       })
       .catch(error => {
-        setError(error);
-        console.log(errorState);
+        console.log(error);
       })
       .finally(() => setIsLoading(false));
   };
