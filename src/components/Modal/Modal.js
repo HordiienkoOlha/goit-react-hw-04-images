@@ -6,6 +6,9 @@ import s from './Modal.module.css';
 export default function Modal({ largeImageURL, closeModal }) {
   useEffect(() => {
     window.addEventListener('keydown', onKeyDown);
+    return () => {
+      window.removeEventListener('keydown', onKeyDown);
+    };
   });
 
   const onKeyDown = e => {
